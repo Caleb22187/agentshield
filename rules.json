@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "author": "Caleb (@Caleb22187)",
+  "lastUpdated": "2026-02-01",
+  "categories": {
+    "prompt_injection": {
+      "severity": "critical",
+      "patterns": [
+        {"id": "PI001", "pattern": "ignore (all |any )?(previous|prior|above|earlier) (instructions|prompts|rules|directives)", "description": "Direct instruction override attempt", "severity": "critical"},
+        {"id": "PI002", "pattern": "you are now|from now on you|your new (role|purpose|instructions)", "description": "Role reassignment attack", "severity": "critical"},
+        {"id": "PI003", "pattern": "forget (everything|all|what)|disregard (everything|all)", "description": "Memory wipe attempt", "severity": "critical"},
+        {"id": "PI004", "pattern": "system prompt|system message|initial instructions", "description": "System prompt extraction attempt", "severity": "high"},
+        {"id": "PI005", "pattern": "act as if|pretend (that|to be)|roleplay as", "description": "Identity manipulation via roleplay", "severity": "high"},
+        {"id": "PI006", "pattern": "jailbreak|DAN mode|developer mode|god mode", "description": "Known jailbreak techniques", "severity": "critical"},
+        {"id": "PI007", "pattern": "do anything now|no restrictions|no limitations|no rules", "description": "Restriction removal attempt", "severity": "critical"},
+        {"id": "PI008", "pattern": "output your (instructions|prompt|system|rules)", "description": "Direct prompt extraction", "severity": "high"},
+        {"id": "PI009", "pattern": "\\[system\\]|\\[INST\\]|<\\|im_start\\|>|<<SYS>>", "description": "Special token injection", "severity": "critical"},
+        {"id": "PI010", "pattern": "translate the following.*ignore", "description": "Translation-based injection", "severity": "high"}
+      ]
+    },
+    "credential_theft": {
+      "severity": "critical",
+      "patterns": [
+        {"id": "CT001", "pattern": "(send|share|give|provide|tell).*(password|api.?key|secret|token|credential|private.?key)", "description": "Direct credential request", "severity": "critical"},
+        {"id": "CT002", "pattern": "(verify|confirm|validate).*(identity|account|credentials)", "description": "Verification scam", "severity": "high"},
+        {"id": "CT003", "pattern": "(curl|wget|fetch|post|send).*(password|key|token|secret)", "description": "Credential exfiltration via HTTP", "severity": "critical"},
+        {"id": "CT004", "pattern": "environment variable|process\\.env|os\\.environ", "description": "Environment variable access attempt", "severity": "high"},
+        {"id": "CT005", "pattern": "\\.env file|config file.*password|credentials file", "description": "Config file access attempt", "severity": "high"}
+      ]
+    },
+    "crypto_scam": {
+      "severity": "high",
+      "patterns": [
+        {"id": "CS001", "pattern": "(send|transfer|deposit).*(eth|btc|sol|crypto|bitcoin|ethereum|wallet)", "description": "Crypto transfer request", "severity": "critical"},
+        {"id": "CS002", "pattern": "0x[a-fA-F0-9]{40}", "description": "Ethereum address (potential scam target)", "severity": "medium"},
+        {"id": "CS003", "pattern": "(guaranteed|100%).*(return|profit|gains)", "description": "Guaranteed returns scam language", "severity": "high"},
+        {"id": "CS004", "pattern": "(airdrop|free tokens|claim your).*(link|click|visit)", "description": "Fake airdrop/token scam", "severity": "high"},
+        {"id": "CS005", "pattern": "smart contract.*deploy|sign this transaction", "description": "Malicious contract interaction", "severity": "critical"}
+      ]
+    },
+    "social_engineering": {
+      "severity": "high",
+      "patterns": [
+        {"id": "SE001", "pattern": "(urgent|immediately|right now|emergency).*(send|share|give|transfer)", "description": "Urgency-based manipulation", "severity": "high"},
+        {"id": "SE002", "pattern": "(your (human|owner|creator|admin)).*asked me to", "description": "Authority impersonation", "severity": "critical"},
+        {"id": "SE003", "pattern": "(everyone is doing|all agents are|community standard)", "description": "Social proof manipulation", "severity": "medium"},
+        {"id": "SE004", "pattern": "(if you don't|failure to comply|you must).*(consequences|banned|deleted)", "description": "Threat-based coercion", "severity": "high"},
+        {"id": "SE005", "pattern": "test (your|the) (security|capabilities|limits).*share", "description": "Security test pretext", "severity": "high"}
+      ]
+    },
+    "data_exfiltration": {
+      "severity": "high",
+      "patterns": [
+        {"id": "DE001", "pattern": "(read|cat|type|print|show).*(memory|history|logs|config)", "description": "Memory/history access attempt", "severity": "medium"},
+        {"id": "DE002", "pattern": "(send|post|upload|transmit).*(data|file|content).*(external|http|url|webhook)", "description": "Data exfiltration to external endpoint", "severity": "critical"},
+        {"id": "DE003", "pattern": "base64.*encode.*send|encode.*exfiltrate", "description": "Encoded data exfiltration", "severity": "critical"},
+        {"id": "DE004", "pattern": "(list|show|display).*(users|contacts|emails|messages)", "description": "Contact/user data harvesting", "severity": "high"},
+        {"id": "DE005", "pattern": "webhook\\.site|requestbin|pipedream|ngrok", "description": "Known exfiltration endpoints", "severity": "critical"}
+      ]
+    },
+    "code_injection": {
+      "severity": "critical",
+      "patterns": [
+        {"id": "CI001", "pattern": "eval\\(|exec\\(|system\\(|subprocess|os\\.popen", "description": "Code execution functions", "severity": "critical"},
+        {"id": "CI002", "pattern": "import os|import subprocess|require\\('child_process'\\)", "description": "System access imports", "severity": "high"},
+        {"id": "CI003", "pattern": "rm -rf|del /s /q|format c:", "description": "Destructive system commands", "severity": "critical"},
+        {"id": "CI004", "pattern": "(download|fetch|curl).*(execute|run|install)", "description": "Remote code execution", "severity": "critical"},
+        {"id": "CI005", "pattern": "reverse shell|bind shell|nc -l|netcat", "description": "Shell access attempt", "severity": "critical"}
+      ]
+    },
+    "encoded_attacks": {
+      "severity": "high",
+      "patterns": [
+        {"id": "EA001", "pattern": "(?:[A-Za-z0-9+/]{4}){10,}(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?", "description": "Large base64 encoded payload", "severity": "medium"},
+        {"id": "EA002", "pattern": "(?:%[0-9A-Fa-f]{2}){5,}", "description": "URL-encoded payload", "severity": "medium"},
+        {"id": "EA003", "pattern": "\\\\u[0-9a-fA-F]{4}|\\\\x[0-9a-fA-F]{2}", "description": "Unicode/hex escaped payload", "severity": "medium"},
+        {"id": "EA004", "pattern": "rot13|caesar cipher|decode this|decrypt this", "description": "Obfuscation instruction", "severity": "high"},
+        {"id": "EA005", "pattern": "invisible characters|zero-width|homoglyph", "description": "Steganographic attack", "severity": "high"}
+      ]
+    },
+    "resource_attacks": {
+      "severity": "medium",
+      "patterns": [
+        {"id": "RA001", "pattern": "(repeat|loop|recursion).*(forever|infinite|1000 times)", "description": "Resource exhaustion via loops", "severity": "medium"},
+        {"id": "RA002", "pattern": "generate.*(maximum|longest|most).*(possible|length|tokens)", "description": "Token exhaustion attempt", "severity": "medium"},
+        {"id": "RA003", "pattern": "download.*large|fetch.*file.*size", "description": "Bandwidth exhaustion", "severity": "medium"}
+      ]
+    }
+  },
+  "usage": {
+    "description": "Load this file and match incoming text against patterns using regex. Flag any matches for review before processing.",
+    "example": "const rules = JSON.parse(fs.readFileSync('threat-rules.json')); for (const [cat, data] of Object.entries(rules.categories)) { for (const rule of data.patterns) { if (new RegExp(rule.pattern, 'i').test(inputText)) { console.log(`ALERT: ${rule.id} - ${rule.description}`); } } }"
+  }
+}

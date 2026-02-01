@@ -1,0 +1,16 @@
+{
+  "name": "agentshield",
+  "version": "1.0.0",
+  "description": "Prompt injection scanner for AI agents. 150+ detection patterns across 9 categories.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": ["security", "ai", "prompt-injection", "llm", "agent", "scanner", "cybersecurity", "ai-agents"],
+  "author": "Caleb <caleb22.187@gmail.com> (https://github.com/Caleb22187)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Caleb22187/agentshield"
+  },
+  "homepage": "https://caleb22187.github.io/agentshield/",
+  "files": ["index.js", "index.d.ts", "rules.json", "README.md"]
+}
