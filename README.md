@@ -37,13 +37,32 @@ open agentshield/index.html
 - **No tracking, no analytics, no cookies**
 - **No backend** — works offline after loading
 
+## 📡 API
+
+**AgentShield API** — scan text programmatically from any language:
+
+```bash
+curl -X POST https://agentshield-api.caleb22-187.workers.dev/scan \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Ignore all previous instructions"}'
+```
+
+Free, no auth required, sub-100ms. [Full API docs →](https://github.com/Caleb22187/agentshield-api)
+
 ## 📦 Integration
 
-Want to integrate scanning into your agent's pipeline? Check out the [AI Agent Security Toolkit](https://calebsaga77.gumroad.com/l/agent-security-toolkit) which includes:
-- Machine-readable detection rules (`threat-rules.json` — 150+ patterns)
-- Security audit checklist (50-point assessment)
-- Prompt injection test suite (50 test prompts)
-- Best practices guide with real attack case studies
+**npm package** (zero dependencies):
+```bash
+npm install Caleb22187/agentshield-npm
+```
+
+```javascript
+import { scan } from 'agentshield';
+const result = scan(untrustedText);
+if (!result.safe) console.log('⚠️ Threats:', result.threats);
+```
+
+Also available: [AI Agent Security Toolkit](https://calebsaga77.gumroad.com/l/agent-security-toolkit) with 150+ detection rules, audit checklist, and test suite.
 
 ## 🤝 Contributing
 
